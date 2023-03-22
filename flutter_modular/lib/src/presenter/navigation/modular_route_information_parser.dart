@@ -126,11 +126,12 @@ class ModularRouteInformationParser
       if (route == null) {
         break;
       }
+      if (route is RedirectRoute) {
+        route = await selectRoute(route.to, arguments: arguments);
+        break;
+      }
     }
 
-    if (route is RedirectRoute) {
-      route = await selectRoute(route.to, arguments: arguments);
-    }
 
     if (route != null) {
       return route as ParallelRoute;
